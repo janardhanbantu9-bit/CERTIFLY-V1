@@ -1,0 +1,212 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-blue: var(--brand-blue);
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.875rem;
+  /* Vibrant dark theme */
+  --background: oklch(0.14 0.06 300);
+  --foreground: oklch(0.98 0.01 300);
+  --card: oklch(0.20 0.06 295 / 60%);
+  --card-foreground: oklch(0.98 0.01 300);
+  --popover: oklch(0.18 0.07 295);
+  --popover-foreground: oklch(0.98 0.01 300);
+  --primary: oklch(0.65 0.24 305);
+  --primary-foreground: oklch(0.99 0.005 300);
+  --secondary: oklch(0.28 0.08 295 / 70%);
+  --secondary-foreground: oklch(0.98 0.01 300);
+  --muted: oklch(0.25 0.05 295 / 60%);
+  --muted-foreground: oklch(0.75 0.05 300);
+  --accent: oklch(0.70 0.25 350);
+  --accent-foreground: oklch(0.99 0.005 300);
+  --destructive: oklch(0.65 0.24 25);
+  --destructive-foreground: oklch(0.99 0.005 300);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.65 0.24 305);
+
+  --brand-purple: oklch(0.60 0.26 300);
+  --brand-pink: oklch(0.70 0.25 350);
+  --brand-blue: oklch(0.70 0.20 250);
+
+  --gradient-brand: linear-gradient(135deg, oklch(0.60 0.26 300), oklch(0.70 0.25 350) 50%, oklch(0.70 0.20 250));
+  --gradient-brand-soft: linear-gradient(135deg, oklch(0.60 0.26 300 / 20%), oklch(0.70 0.25 350 / 20%) 50%, oklch(0.70 0.20 250 / 20%));
+  --gradient-hero: radial-gradient(ellipse at top, oklch(0.30 0.15 305 / 60%), transparent 60%),
+    radial-gradient(ellipse at bottom right, oklch(0.30 0.15 350 / 40%), transparent 55%),
+    radial-gradient(ellipse at bottom left, oklch(0.30 0.15 250 / 40%), transparent 55%);
+  --shadow-glow: 0 20px 60px -20px oklch(0.65 0.24 305 / 60%);
+  --shadow-glow-pink: 0 20px 60px -20px oklch(0.70 0.25 350 / 60%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body, #app {
+    min-height: 100%;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    background-image: var(--gradient-hero);
+    background-attachment: fixed;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility glass {
+  background: linear-gradient(135deg, oklch(1 0 0 / 8%), oklch(1 0 0 / 3%));
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid oklch(1 0 0 / 12%);
+}
+
+@utility glass-strong {
+  background: linear-gradient(135deg, oklch(1 0 0 / 12%), oklch(1 0 0 / 5%));
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid oklch(1 0 0 / 18%);
+}
+
+@utility gradient-text {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility gradient-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: var(--gradient-brand);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility btn-hero {
+  background: var(--gradient-brand);
+  color: white;
+  box-shadow: var(--shadow-glow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-pink);
+  }
+}
+
+@utility glow-purple {
+  box-shadow: 0 0 40px oklch(0.65 0.24 305 / 40%);
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@utility animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+/* Live moving pink aurora backdrop */
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-6%, -4%, 0) scale(1.1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(6%, 5%, 0) scale(1.25) rotate(12deg);
+  }
+  100% {
+    transform: translate3d(-6%, -4%, 0) scale(1.1) rotate(0deg);
+  }
+}
+
+@keyframes aurora-hue {
+  0%,
+  100% {
+    filter: blur(70px) hue-rotate(0deg);
+  }
+  50% {
+    filter: blur(90px) hue-rotate(25deg);
+  }
+}
+
+@utility aurora-pink {
+  position: absolute;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 42% at 22% 30%, oklch(0.72 0.2 350 / 70%) 0%, transparent 65%),
+    radial-gradient(34% 38% at 78% 24%, oklch(0.66 0.22 8 / 62%) 0%, transparent 68%),
+    radial-gradient(44% 46% at 62% 76%, oklch(0.58 0.19 330 / 58%) 0%, transparent 70%),
+    radial-gradient(40% 40% at 30% 82%, oklch(0.5 0.17 300 / 50%) 0%, transparent 70%);
+  animation:
+    aurora-drift 22s ease-in-out infinite,
+    aurora-hue 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-pink {
+    animation: none;
+  }
+}
