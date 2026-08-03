@@ -123,7 +123,11 @@ function RootComponent() {
 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event) => {
-      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
+      // SIGNED_IN is intentionally excluded here: the auth.tsx submit handler
+      // already navigates after a successful sign-in. Also invalidating here
+      // races that navigation and can leave the router mid-resolution with
+      // nothing mounted (blank page until a manual refresh).
+      if (event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
       router.invalidate();
       if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
     });
