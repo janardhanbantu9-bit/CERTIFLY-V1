@@ -13,7 +13,7 @@ export const Route = createFileRoute("/auth")({
   ssr: false,
   beforeLoad: async () => {
     const { data } = await supabase.auth.getSession();
-    if (data.session) throw redirect({ to: "/create" });
+    if (data.session) throw redirect({ to: "/dashboard" });
   },
   head: () => ({
     meta: [
@@ -81,7 +81,7 @@ function AuthPage() {
     }
 
     toast.success("Signed in");
-    navigate({ to: "/create", replace: true });
+    navigate({ to: "/dashboard", replace: true });
   }
 
   return (
