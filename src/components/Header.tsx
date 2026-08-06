@@ -36,7 +36,7 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-40 glass border-b border-white/10">
+    <header className="sticky top-0 z-40 glass border-b border-white/10 transform-gpu">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2 group">
           <div className="grid h-9 w-9 place-items-center rounded-xl btn-hero">
@@ -59,9 +59,6 @@ export function Header() {
         </nav>
         {signedIn ? (
           <div className="flex items-center gap-3">
-            <Link to="/create" className="rounded-full px-4 py-2 text-sm font-medium btn-hero">
-              Generate now
-            </Link>
             <button
               type="button"
               onClick={signOut}
